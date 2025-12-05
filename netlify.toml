@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+
+# This rewrite rule ensures all traffic sees the migration page
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
