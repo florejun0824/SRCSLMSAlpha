@@ -3,239 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Migration Notice | SRCS LMS</title>
+    <title>SRCS Digital Ecosystem</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* Colors aligned with your app's dark theme */
-            --primary: #4f46e5; /* Indigo 600 */
-            --primary-hover: #4338ca; /* Indigo 700 */
-            --success: #10b981; /* Emerald 500 */
-            --card-bg: rgba(15, 23, 42, 0.7); /* Slate 900 with opacity */
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc; /* Slate 50 */
-            --text-sub: #94a3b8; /* Slate 400 */
+            /* Palette: Deep Navy & Vibrant Blue/Purple Gradients */
+            --bg-deep: #0b1120; 
+            --card-surface: rgba(30, 41, 59, 0.4); 
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+            --highlight: #38bdf8;
         }
 
         body {
             margin: 0;
             padding: 20px;
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
             color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             overflow: hidden;
-            background-color: #020617; /* Slate 950 fallback */
+            position: relative;
         }
 
-        /* Full Screen Background Image */
-        .bg-image {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* --- Ambient Background --- */
+        .ambient-glow {
+            position: absolute;
             width: 100%;
             height: 100%;
-            z-index: -2;
-            background-image: url('public/2.png'); /* Using your image */
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4; /* Dim the image */
-        }
-
-        /* Gradient Overlay */
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            overflow: hidden;
             z-index: -1;
-            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 0.95));
         }
 
-        /* The Notice Card */
-        .notice-board {
-            background: var(--card-bg);
+        .glow-blob {
+            position: absolute;
+            filter: blur(90px);
+            opacity: 0.4;
+            border-radius: 50%;
+        }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #1e40af 0%, transparent 70%);
+        }
+
+        .blob-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #5b21b6 0%, transparent 70%);
+        }
+
+        /* --- Main Card --- */
+        .hub-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-surface);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: 48px 40px;
-            border-radius: 32px;
             border: 1px solid var(--card-border);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
             text-align: center;
-            max-width: 480px;
-            width: 100%;
             position: relative;
-            box-sizing: border-box;
+            overflow: hidden;
         }
 
-        /* Status Badge */
-        .status-badge {
+        /* Top decorative gradient line */
+        .hub-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-gradient);
+        }
+
+        /* --- Iconography --- */
+        .ecosystem-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 32px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .ecosystem-icon svg {
+            color: var(--highlight);
+            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+        }
+
+        /* --- Typography --- */
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .highlight-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-sub);
+            margin: 0 0 32px;
+        }
+
+        .description strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* --- Feature Pills --- */
+        .audience-tag {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 14px;
-            background: rgba(16, 185, 129, 0.1); 
-            color: var(--success);
-            border-radius: 99px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 32px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--success);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--success);
-            animation: pulse 2s infinite;
-        }
-
-        /* Icon Container */
-        .icon-container {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(79, 70, 229, 0.05));
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            margin-bottom: 40px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            color: #818cf8; /* Indigo 400 */
         }
 
-        h1 {
-            margin: 0 0 16px;
-            font-size: 36px;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-        }
-
-        p {
-            margin: 0 0 40px;
-            color: var(--text-sub);
-            line-height: 1.6;
-            font-size: 15px;
+        .audience-tag span {
+            font-size: 0.85rem;
+            color: #cbd5e1;
             font-weight: 500;
         }
 
-        /* Primary Button */
-        .btn-primary {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: linear-gradient(to right, var(--primary), var(--primary-hover));
+        .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-sub);
+            border-radius: 50%;
+        }
+
+        /* --- Button --- */
+        .btn-launch {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-gradient);
             color: white;
             text-decoration: none;
-            padding: 18px 32px;
+            font-weight: 600;
             border-radius: 16px;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.5);
-            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
             box-sizing: border-box;
-            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 1rem;
+            position: relative;
+            z-index: 10;
         }
 
-        .btn-primary:hover {
+        .btn-launch:hover {
             transform: translateY(-2px);
-            box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.6);
-            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
         }
 
-        .arrow-icon {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.2s;
-        }
-
-        .btn-primary:hover .arrow-icon {
-            transform: translateX(4px);
-        }
-
-        /* Footer */
-        .footer-note {
+        /* --- Footer --- */
+        .footer-logo {
             margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid var(--card-border);
-            font-size: 12px;
-            color: #64748b; /* Slate 500 */
-            line-height: 1.5;
+            opacity: 0.5;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        .footer-note strong {
-            color: #cbd5e1; /* Slate 300 */
-        }
-
-        /* Animations */
+        /* --- Animation --- */
         .fade-in {
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
         }
 
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
+        .d-1 { animation-delay: 0.1s; }
+        .d-2 { animation-delay: 0.2s; }
+        .d-3 { animation-delay: 0.3s; }
+        .d-4 { animation-delay: 0.4s; }
 
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
     </style>
 </head>
 <body>
-    <div class="bg-image"></div>
-    <div class="bg-overlay"></div>
 
-    <div class="notice-board">
-        <div class="status-badge fade-in delay-1">
-            <div class="status-dot"></div>
-            System Migration Complete
-        </div>
+    <div class="ambient-glow">
+        <div class="glow-blob blob-1"></div>
+        <div class="glow-blob blob-2"></div>
+    </div>
 
-        <div class="icon-container fade-in delay-1">
-            <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+    <main class="hub-card">
+        
+        <div class="ecosystem-icon fade-in d-1">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="M12 4v2"></path>
+                <path d="M12 18v2"></path>
+                <path d="M4 12h2"></path>
+                <path d="M18 12h2"></path>
+                <path d="M6.3 6.3l1.4 1.4"></path>
+                <path d="M16.3 16.3l1.4 1.4"></path>
+                <path d="M6.3 17.7l1.4-1.4"></path>
+                <path d="M16.3 7.7l1.4-1.4"></path>
             </svg>
         </div>
 
-        <h1 class="fade-in delay-2">We Have Moved</h1>
-        <p class="fade-in delay-3">
-            The SRCS Learning Management System has been upgraded to a new, faster platform. This URL is now archived.
+        <h1 class="fade-in d-2">
+            Welcome to the<br>
+            <span class="highlight-text">SRCS Digital Ecosystem</span>
+        </h1>
+
+        <p class="description fade-in d-2">
+            The SRCS Learning Management System has been fully upgraded to the <strong>SRCS Digital Ecosystem</strong>. This unified environment now ensures that different digital essential platforms are seamlessly accessible.
         </p>
 
-        <a href="https://srcsenrollment.vercel.app/" class="btn-primary fade-in delay-4">
-            Go to New Portal
-            <svg class="arrow-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+        <div class="audience-tag fade-in d-3">
+            <span>For Students</span>
+            <div class="dot"></div>
+            <span>For Teachers</span>
+        </div>
+
+        <a href="https://srcsenrollment.vercel.app/" class="btn-launch fade-in d-4">
+            Launch Ecosystem
         </a>
 
-        <div class="footer-note fade-in delay-4">
-            <strong>Update Required:</strong> Please save the new address to your bookmarks. This redirect page will be disabled soon.
+        <div class="footer-logo fade-in d-4">
+            SRCS Digital Services
         </div>
-    </div>
+
+    </main>
+
 </body>
 </html>
