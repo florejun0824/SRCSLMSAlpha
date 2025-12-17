@@ -31,7 +31,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden; /* Prevent horizontal scroll */
             position: relative;
         }
 
@@ -81,6 +81,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-sizing: border-box; /* Ensures padding is included in width */
         }
 
         /* Top decorative gradient line */
@@ -94,23 +95,23 @@
             background: var(--primary-gradient);
         }
 
-        /* --- Iconography --- */
-        .ecosystem-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 32px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
+        /* --- Logo Container --- */
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
         }
 
-        .ecosystem-icon svg {
-            color: var(--highlight);
-            filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Adds a subtle glow to the image itself to match the theme */
+            filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.3));
         }
 
         /* --- Typography --- */
@@ -119,6 +120,7 @@
             font-weight: 700;
             margin: 0 0 16px;
             letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
         .highlight-text {
@@ -149,12 +151,15 @@
             border-radius: 100px;
             margin-bottom: 40px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 100%; /* Prevent overflow on very small screens */
+            box-sizing: border-box;
         }
 
         .audience-tag span {
             font-size: 0.85rem;
             color: #cbd5e1;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .dot {
@@ -162,6 +167,7 @@
             height: 4px;
             background: var(--text-sub);
             border-radius: 50%;
+            flex-shrink: 0;
         }
 
         /* --- Button --- */
@@ -211,6 +217,32 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- Mobile Optimization --- */
+        @media (max-width: 480px) {
+            .hub-card {
+                padding: 32px 24px; /* Reduced padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 1.6rem; /* Smaller heading size */
+            }
+
+            .logo-container {
+                width: 80px; /* Slightly smaller logo */
+                height: 80px;
+                margin-bottom: 20px;
+            }
+
+            .description {
+                font-size: 0.95rem;
+                margin-bottom: 24px;
+            }
+
+            .audience-tag {
+                margin-bottom: 32px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -222,19 +254,8 @@
 
     <main class="hub-card">
         
-        <div class="ecosystem-icon fade-in d-1">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <circle cx="12" cy="12" r="8"></circle>
-                <path d="M12 4v2"></path>
-                <path d="M12 18v2"></path>
-                <path d="M4 12h2"></path>
-                <path d="M18 12h2"></path>
-                <path d="M6.3 6.3l1.4 1.4"></path>
-                <path d="M16.3 16.3l1.4 1.4"></path>
-                <path d="M6.3 17.7l1.4-1.4"></path>
-                <path d="M16.3 7.7l1.4-1.4"></path>
-            </svg>
+        <div class="logo-container fade-in d-1">
+            <img src="public/1.png" alt="SRCS Logo">
         </div>
 
         <h1 class="fade-in d-2">
@@ -247,11 +268,9 @@
         </p>
 
         <div class="audience-tag fade-in d-3">
-            <span>For Administrators</span>
+            <span>For Students</span>
             <div class="dot"></div>
             <span>For Teachers</span>
-            <div class="dot"></div>
-            <span>For Students</span>
         </div>
 
         <a href="https://srcsenrollment.vercel.app/" class="btn-launch fade-in d-4">
